@@ -5,10 +5,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-@Component
+import java.util.List;
+
+
 @Mapper
 public interface UserMapper {
-    UserVo findUserByLoginId(@Param("loginId") String loginId);
+    public UserVo readUser(String username);
 
-    int setUserInfo(@Param("param") UserVo param);
+    public List<String> readAuthority(String username);
 }

@@ -2,45 +2,45 @@ package com.escapepj.demo.service;
 
 import com.escapepj.demo.mapper.UserMapper;
 import com.escapepj.demo.vo.RoleVo;
+import com.escapepj.demo.vo.SecurityUser;
 import com.escapepj.demo.vo.UserRoleVo;
 import com.escapepj.demo.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
 public class SecurityService implements UserDetailsService {
 
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private UserRoleMapper userRoleMapper;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private static final String ROLE_PREFIX = "ROLE_";
 
-    public UserVo findUserByLoginId(String loginId) {
-        return userMapper.findUserByLoginId(loginId);
-    }
-
-    public void saveUser(UserVo userVo) {
-        userVo.setPassword(bCryptPasswordEncoder.encode(userVo.getPassword()));
-        userVo.setActive(1);
-        userMapper.setUserInfo(userVo);
-        RoleVo roleVo = roleMapper.getRoleInfo("ADMIN");
-        UserRoleVo userRoleVo = new UserRoleVo();
-        userRoleVo.setRoleId(roleVo.getId());
-        userRoleVo.setUserId(userVo.getId());
-        userRoleMapper.setUserRoleInfo(userRoleVo);
-    }
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserVo userVo = userMapper.findUserByLoginId(username);
-        return new UserPrincipal(userVo);
+
+        UserVo userVo = userMapper.readUser(username);
+        if(userVo != null) {
+            userVo.setAuthorities(makeGrantedAuthority(userMapper.readAuthority(username)));
+        }
+        return new SecurityUser(userVo);
     }
+
+    private static List<GrantedAuthority> makeGrantedAuthority(List<String> roles){
+        List<GrantedAuthority> list = new ArrayList<>();
+        roles.forEach(role -> list.add(new SimpleGrantedAuthority(ROLE_PREFIX + role)));
+        return list;
+    }
+
 
 
 }
