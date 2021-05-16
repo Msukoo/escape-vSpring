@@ -1,8 +1,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link th:src="@{/style/app.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>EscapeRoom</title>
 </head>
 <body>
-    <p>-_-?</p>
+<!--<head th:replace="common/topnavi.html :: head"></head>-->
+
+<!--홍보사진-->
+<div>
+    <img src="image\main1.JPG" alt="middle" class="middle">
+</div>
+<div>
+    <img src="image\main_notice.JPG" alt="middle" class="middle">
+</div>
+<div>
+    <img src="image\main_who.JPG" alt="middle" class="middle">
+</div>
+<div class="map">
+    <p id="where">[ 찾아오시는 길 ]</p>
+    <!-- * 카카오맵 - 지도퍼가기 -->
+    <!-- 1. 지도 노드 -->
+    <div id="daumRoughmapContainer1605668750185" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+
+    <!--
+        2. 설치 스크립트
+        * 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
+    -->
+    <script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+    <!-- 3. 실행 스크립트 -->
+    <script charset="UTF-8">
+        new daum.roughmap.Lander({
+            "timestamp" : "1605668750185",
+            "key" : "23z7x",
+            "mapWidth" : "1880",
+            "mapHeight" : "500"
+        }).render();
+    </script>
+</div>
+<footer th:replace="footer.html :: footer"></footer>
 </body>
 </html>

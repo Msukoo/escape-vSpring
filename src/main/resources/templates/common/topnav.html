@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link th:src="@{/css/topnavi.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:fragment="head">
+    <div id="top_navi">
+        <a href="index.jsp"><img src="image\logo2.png" alt="logo" id="logo"></a>
+        <ul id="menu">
+            <li class="menuli"><a href="/" class="menu">Home</a></li>
+            <li class="menuli"><a href="thema.do" class="menu">테마</a></li>
+            <th:block th:if="${idSession}!=null">
+                <li class="menuli"><a href="booking.do" class="menu">예약하기</a></li>
+            </th:block>
+            <th:block th:unless="${idSession}!=null">
+                <li class="menuli"><a href="login.do" class="menu">예약하기</a></li>
+            </th:block>
+            <li id="drop" class="menuli"><a href="#" class="menu">커뮤니티</a>
+                <div class="sub_menu">
+                    <a href="review.do" class="comu_menu">탈출후기</a>
+                    <a href="QnA.do" class="comu_menu">QnA</a>
+                </div>
+            </li>
+            <th:block th:if="${idSession}=='admin'">
+                <li class="menuli"><a href="admin_index.do" class="menu" id="goToPage">관리자페이지</a></li>
+            </th:block>
+            <th:block th:unless="${idSession}=='admin'">
+                <li class="menuli"><a href="mypage.do" class="menu" id="goToPage">마이페이지</a></li>
+            </th:block>
+        </ul>
+        <th:block th:if="${idSession}!=null">
+            <span class="loginout">${idSession}님 <a href="logout.do" >로그아웃</a></span>
+        </th:block>
+        <th:block th:unless="${idSession}!=null">
+            <a href="login.do" class="loginout">로그인/회원가입</a>
+        </th:block>
+    </div>
+</header>
+</body>
+</html>

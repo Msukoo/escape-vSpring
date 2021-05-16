@@ -1,0 +1,53 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link th:src="@{/style/app.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+<div>
+    <form name="loginForm" method="post">
+        <table>
+            <tr id="imgtr">
+                <td><img src="image\logo2.png"></td>
+            </tr>
+            <tr>
+                <td><b>아이디</b></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="username" class="inputbox"></td>
+            </tr>
+            <tr>
+                <td> </td>
+            </tr>
+            <tr>
+                <td><b>비밀번호</b></td>
+            </tr>
+            <tr>
+                <td><input type="password" name="password" class="inputbox"></td>
+            </tr>
+        </table>
+        <br>
+        <input type="button" value="로그인" onclick="loginCheck()" id="loginbtn">
+    </form>
+    <a href="searchInfo.do" ><u>아이디/비밀번호 찾기</u></a>
+    <span id="join">
+	<a href="join.do" ><u>회원이 아니세요?</u></a>
+</span>
+</div>
+</body>
+<script>
+    function loginCheck(){
+        var id = loginForm.username.value;
+        var pw= loginForm.password.value;
+
+        if(id==""||pw==""){
+            alert("아이디와 비밀번호를 모두 입력해주세요")
+        }else{
+            loginForm.submit();
+        }
+    }
+</script>
+</html>
