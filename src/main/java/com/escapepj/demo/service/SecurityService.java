@@ -27,8 +27,8 @@ public class SecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         UserVo userVo = userMapper.readUser(username);
+        System.out.println("readuser");
         if(userVo != null) {
             userVo.setAuthorities(makeGrantedAuthority(userMapper.readAuthority(username)));
         }

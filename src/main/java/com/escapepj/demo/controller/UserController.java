@@ -5,6 +5,7 @@ import com.escapepj.demo.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,12 +53,18 @@ public class UserController {
     }
 
     @RequestMapping("/join/save")
-    public String  saveUser(UserVo userVo) {
+    public String  saveUser(ModelMap model, UserVo userVo, HttpServletRequest request, HttpServletResponse response) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         userVo.setPassword(passwordEncoder.encode(userVo.getPassword()));
-        userMapper.saveUser(userVo);
-
-        return "redirect:/user/login";
+        int result = 0;
+        result =userMapper.saveUser(userVo);
+        if(result == 1) {
+            model.addAttribute("result", "Y");
+        }else if(result == 0) {
+            model.addAttribute("result", "N");
+        }
+        model.addAttribute("submit", "join");
+        return "result";
     }
 
 

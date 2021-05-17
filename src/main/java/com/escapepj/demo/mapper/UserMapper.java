@@ -14,7 +14,7 @@ public interface UserMapper {
 
     public List<String> readAuthority(String username);
 
-    public void saveUser(UserVo userVo);
+    public int saveUser(UserVo userVo);
 
     int idCheck(String userId);
 }
