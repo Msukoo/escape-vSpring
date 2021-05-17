@@ -1,0 +1,177 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="HTML Study">
+    <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+    <meta name="author" content="Minsu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css\join.css">
+    <title>join</title>
+</head>
+<body>
+<header>
+    <div id="top_navi">
+        <a href="/"><img src="image\logo.JPG" alt="logo" id="logo"></a>
+        <ul id="menu">
+            <li class="menuli"><a href="/" class="menu">Home</a></li>
+            <li class="menuli"><a href="thema.do" class="menu">테마</a></li>
+            <li class="menuli"><a href="booking.do" class="menu">예약하기</a></li>
+            <li id="drop" class="menuli"><a href="#" class="menu">커뮤니티</a>
+                <div class="sub_menu">
+                    <a href="#" class="comu_menu">탈출후기</a>
+                    <a href="#" class="comu_menu">QnA</a>
+                </div>
+            </li>
+        </ul>
+        <a href="user/login" class="login/out">로그인/회원가입</a>
+    </div>
+</header>
+<form name="joinForm" method="post" action="user/join/save" onsubmit='return joinCheck();'>
+    <div id="join">
+        <h1>sign up</h1>
+        <table>
+            <tr>
+                <td class="subject"><b>아이디</b></td>
+                <td><input type="text" name="username" class="input" id="username">
+                    <input type="button" value="중복체크" onclick="usernameCheck();" id="idCheck" />
+                    <div id="idMsg" data-flag="false"><span>아이디는 5~20자의 영문 소문자,숫자만 사용 가능합니다.</span></div>
+                    <div id="idchk" data-flag="false"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="subject"><b>이름</b></td>
+                <td><input type="text" name="name" class="input" required></td>
+            </tr>
+            <tr>
+                <td class="subject"><b>비밀번호</b></td>
+                <td>
+                    <input type="password" name="password" class="input" id="password">
+                    <div id="pwMsg" data-flag="false"><span>비밀번호는 8~16자로 입력하세요.</span></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="subject"><b>비밀번호 확인</b></td>
+                <td>
+                    <input type="password" id="password2" name="password2" class="input">
+                </td>
+
+            </tr>
+            <tr>
+                <td class="subject"><b>연락처</b></td>
+                <td>
+                    <input type="text" name="phone" class="pinput" required>
+                </td>
+            </tr>
+            <tr id="btntr">
+                <td colspan="2"><input type="submit" value="가입하기" id="joinBtn"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<script>
+    function pwCheck(){
+        var pw = joinForm.password.value;
+        var pw2 = joinForm.password2.value;
+
+        if(pw==pw2 && (pw.length>8&&pw.length<12)){
+            return true;
+        }
+        return false;
+    }
+
+    document.getElementById('username').addEventListener("blur",function(){
+        var id = document.getElementById('username');
+        var idMsg = document.getElementById('idMsg');
+        if(id.value == ""){
+            showMsg(idMsg,"아이디를 입력하시기 바랍니다.","fail");
+        }else{
+            showMsg(idMsg," ","true");
+        }
+    });
+    document.getElementById('password').addEventListener("blur",function(){
+        var password = document.getElementById('password');
+        var pwMsg = document.getElementById('pwMsg');
+        if(password.value == ""){
+            showMsg(pwMsg,"비밀번호를 입력하시기 바랍니다.","fail");
+        }else{
+            if(pwCheck()){
+                showMsg(pwMsg,"사용 가능한 비밀번호입니다.","success");
+            }else{
+                showMsg(pwMsg,"비밀번호를 확인해주세요.","fail");
+            }
+        }
+    });
+    function showMsg(object, msg, successAndFail){
+        if(successAndFail == "fail"){
+            object.innerHTML = "<span style='color:red'>"+msg+"</span>";
+            object.dataset.flag = "false";
+        }else if(successAndFail == "success"){
+            object.innerHTML = "<span style='color:green'>"+msg+"</span>";
+            object.dataset.flag = "true";
+        }else{
+            object.innerHTML = "<span></span>";
+            object.dataset.flag = "true";
+        }
+    }
+
+    function usernameCheck(){
+        var username = document.getElementById('username').value;
+        var xhr = new XMLHttpRequest();
+        xhr.open("post","/user/idCheck",true);
+        if(idMsg.dataset.flag=='true'){
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == xhr.DONE){
+                    if(xhr.status == 200){
+                        var data = xhr.responseText;
+                        data = JSON.parse(data);
+                        var result = data.result;
+                        if(result == "Y"){
+                            showMsg(idchk,"사용 가능한 아이디입니다.","success");
+                        }else if(result == "N"){
+                            showMsg(idchk,"이미 사용중이거나 탈퇴한 아이디입니다.","fail");
+                        }else{
+                            // TODO : 에러페이지
+                        }
+                    }else{
+                        alert("요청 오류 : "+xhr.status);
+                    }
+                }
+            }
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            xhr.send("username="+username);
+        }else{
+            alert("아이디를 입력해주세요");
+        }
+
+
+    }
+    function joinCheck() {
+        var username = document.getElementById('username');
+        var password = document.getElementById('password');
+        var idMsg = document.getElementById('idMsg');
+        var idchk = document.getElementById('idchk');
+        var pwMsg = document.getElementById('pwMsg');
+        if(idMsg.dataset.flag == "false"){
+            alert("아이디를 확인해주세요.");
+            username.focus();
+            return false;
+
+        }else if(idchk.dataset.flag == "false"){
+            alert("아이디 중복체크를 해주세요");
+            username.focus();
+            return false;
+        }else if(pwMsg.dataset.flag == "false"){
+            alert("비밀번호를 확인해주세요.");
+            password.focus();
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+</script>
+</body>
+</html>

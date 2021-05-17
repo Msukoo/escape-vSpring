@@ -13,4 +13,8 @@ public interface UserMapper {
     public UserVo readUser(String username);
 
     public List<String> readAuthority(String username);
+
+    public void saveUser(UserVo userVo);
+
+    int idCheck(String userId);
 }

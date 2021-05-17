@@ -9,4 +9,19 @@
         SELECT authority_name FROM authority WHERE username = #{username}
     </select>
 
+    <!--회원가입-->
+    <insert id="saveUser" parameterType="com.escapepj.demo.vo.UserVo">
+        insert into
+            user(
+                 username, password, name, phone)
+            values(
+                #{username}, #{password}, #{name}, #{phone})
+    </insert>
+
+    <!--아이디중복체크-->
+    <select id="idCheck" parameterType="String" resultType="Integer">
+        select count(*)
+        from user
+        where username = #{username}
+    </select>
 </mapper>
