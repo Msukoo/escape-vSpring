@@ -6,7 +6,7 @@
         SELECT * FROM user WHERE username = #{username}
     </select>
     <select id="readAuthority" parameterType="String" resultType="String">
-        SELECT authority_name FROM authority WHERE username = #{username}
+        SELECT role FROM role WHERE username = #{username}
     </select>
 
     <!--회원가입-->

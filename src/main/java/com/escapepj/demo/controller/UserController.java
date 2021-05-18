@@ -47,7 +47,7 @@ public class UserController {
         }else if(check == 0) {
             result = "Y";
         }
-
+        System.out.println("result: " +result + ", username: " + username);
         resultMap.put("result", result);
         return resultMap;
     }
@@ -64,6 +64,13 @@ public class UserController {
             model.addAttribute("result", "N");
         }
         model.addAttribute("submit", "join");
+        return "result";
+    }
+
+    @RequestMapping("/login/fail")
+    public String  loginFailUser(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute("result", "N");
+        model.addAttribute("submit", "login");
         return "result";
     }
 

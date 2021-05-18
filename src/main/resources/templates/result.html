@@ -9,16 +9,16 @@
 </body>
 <script type="text/javascript">
 
-    var result = '${result}';
-    var submit = '${submit}';
-
+    var result = '[[${result}]]';
+    var submit = '[[${submit}]]';
+    console.log(result + submit);
     if(submit == 'login'){
         if(result == 'Y'){
             // TODO : 기존의 페이지로 돌아가게
             alert("로그인에 성공하였습니다. 홈페이지로 이동합니다.");
             location.href="/";
         }else if(result == 'N'){
-            alert("로그인이 실패하였습니다. 다시 확인해주시기 바랍니다.");
+            alert("아이디가 없거나 비밀번호가 다릅니다");
             location.href="/user/login";
         }else{
             // TODO : 에러페이지
