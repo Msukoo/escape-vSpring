@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 페이지 권한 설정
                 .antMatchers("/admin/**").authenticated()
                 .antMatchers("/user/myinfo").authenticated()
+                .antMatchers("/reserve/**").authenticated()
                 .antMatchers("/**").permitAll()
                 .and() // 로그인 설정
                 .formLogin()

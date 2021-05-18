@@ -2,23 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <link rel="stylesheet" type="text/css" href="../resources/css/topnavi.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/footer.css">
+
     <link th:src="@{/style/app.css}" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>EscapeRoom</title>
 </head>
 <body>
-<!--  로그인한 상태라면 이름과, logout 버튼 출력      -->
-<div th:if="|${#authorization.expr('isAuthenticated()')} 님|">
-    <h2 th:text="${#authentication.name}"></h2>
-    <a href="/logout" th:href="@{/logout}">Logout</a>
-</div>
-<!--  로그인한 상태가 아니라면 login 버튼 출력  -->
-<div th:unless="${#authorization.expr('isAuthenticated()')}">
-    <a href="#login" th:href="@{/user/login}">Login</a>
-</div>k
-<div sec:authentication="name"></div>
-
-<!--<head th:replace="common/topnavi.html :: head"></head>-->
+<header th:replace="common/topnav.html :: head"></header>
 
 <!--홍보사진-->
 <div>
@@ -52,6 +44,6 @@
         }).render();
     </script>
 </div>
-<footer th:replace="footer.html :: footer"></footer>
+<footer th:replace="common/footer.html :: footer"></footer>
 </body>
 </html>
