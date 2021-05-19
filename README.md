@@ -28,8 +28,8 @@ escapeRoom spring Boot version ....진행중
 
 ## :pushpin: Issues
 ```
-spring secutiry 적용
- - 회원가입, 로그인 구현
+1. spring secutiry 적용
+   - 회원가입, 로그인 구현
 
 ```
 
