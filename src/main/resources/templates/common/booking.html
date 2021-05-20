@@ -1,0 +1,63 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link rel="stylesheet" type="text/css" href="../resources/css/topnavi.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/footer.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
+    <link th:src="@{/style/app.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>EscapeRoom</title>
+</head>
+<body>
+<header th:replace="common/topnav.html :: head"></header>
+
+<!-- 날짜선택 -->
+<div class="">
+    <div class="">
+        <h3 class="">날짜 선택</h3>
+    </div>
+    <input type="text" class="targetDate" id="datepicker" placeholder="YYYY-MM-DD">
+    <!-- <input type="select" class="form-control"> -->
+</div>
+
+<!-- 테마선택 -->
+<!--<div>-->
+<!--    <div th:each="thema : ${themaList}">-->
+<!--        <div>-->
+<!--            <img th:src="${thema.img}">-->
+<!--            <h2 th:text="${thema.name}"></h2>-->
+<!--        </div>-->
+<!--        <div th:each="time : ${timeList}">-->
+<!--            <div id="" data-target="#reserv-modal">-->
+<!--            <span class="times" th:text="${time}"></span><br />-->
+<!--                <a th:if="${pageMaker.isPrev()}" class="isBooking" >예약완료</a>-->
+<!--                <a th:unless="${pageMaker.isPrev()}" class="isBooking" >예약하기</a>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</div>-->
+
+<footer th:replace="common/footer.html :: footer"></footer>
+</body>
+<script>
+    $(function(){
+        $("#datepicker").datepicker({
+            showOn: "both",
+            buttonImage: "images/calendar.gif",
+            dateFormat: "yymmdd",
+            buttonImageOnly: true,
+            buttonText: "Select date",
+            minDate : 0,
+            maxDate : '+7d',
+            onSelect: function(dateText, inst) {
+
+            }
+        });
+    });
+</script>
+</html>

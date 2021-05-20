@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link rel="stylesheet" type="text/css" href="../resources/css/topnavi.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/footer.css">
+
+    <link th:src="@{/style/app.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>EscapeRoom</title>
+</head>
+<body>
+<header th:replace="topnav.html :: head"></header>
+
+<footer th:replace="common/footer.html :: footer"></footer>
+</body>
+</html>
