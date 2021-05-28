@@ -5,6 +5,7 @@ import com.escapepj.demo.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -68,6 +69,14 @@ public class UserController {
         model.addAttribute("result", "N");
         model.addAttribute("submit", "login");
         return "common/result";
+    }
+
+    @RequestMapping("/mypage")
+    public String getUser(Model model, HttpServletRequest request, HttpServletResponse response){
+        UserVo userVo = new UserVo();
+
+        model.addAttribute("userVo", userVo);
+        return "user/mypage";
     }
 
 
