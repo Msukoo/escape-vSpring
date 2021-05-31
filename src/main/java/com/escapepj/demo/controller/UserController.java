@@ -80,6 +80,10 @@ public class UserController {
     }
 
 
+    
+
+
+
 //    @RequestMapping("/openapi/readAuthority/{username}")
 //    public @ResponseBody String  openApiReadAuthority(@PathVariable String username) {
 //        List<String> auths = userMapper.readAuthority(username);

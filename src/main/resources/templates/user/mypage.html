@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>내 정보</title>
+</head>
+<body>
+<div id="title">
+    <p>마이페이지</p>
+</div>
+<div class="contents" id="user">
+    <table>
+        <tr id="info">
+            <td><span id="name">${userdto.user_name}</span> 님</td>
+            <td><img src="image\trophy_.png" id="trophy"> <span id="trophyNum">${userdto.user_trophy}</span> 개</td>
+        </tr>
+    </table>
+</div>
+<div class="contents" id="infomenu">
+    <table>
+        <tr id="infotr">
+            <td><a th:href="@{/user/booking}" class="other">내 예약현황</a></td>
+            <td><a th:href="@{/user/myinfo}" id="current">내 정보</a></td>
+            <td><a th:href="@{/user/myreview}" class="other">내가 쓴 리뷰</a></td>
+        </tr>
+    </table>
+</div>
+<div id="contents">
+    <form name="joinForm" method="post" action="modifyUserInfo.do">
+        <h2>내 정보 보기</h2><br>
+        <table>
+            <tr>
+                <td class="subject"><b>아이디</b></td>
+                <td class="subject_">${userdto.user_id}</td>
+            </tr>
+            <tr>
+                <td class="subject"><b>이름</b></td>
+                <td class="subject_">${userdto.user_name}</td>
+            </tr>
+            <tr>
+                <td class="subject"><b>비밀번호</b></td>
+                <td class="subject_"><input type="password" name="pw" class="input"></td>
+            </tr>
+            <tr>
+                <td class="subject"><b>비밀번호 확인</b></td>
+                <td class="subject_"><input type="password" name="pw2" class="input"></td>
+            </tr>
+            <tr>
+                <td class="subject"><b>이메일</b></td>
+                <td class="subject_"><input type="text" name="email" class="input" value="${userdto.user_email}"></td>
+            </tr>
+            <tr>
+                <td class="subject"><b>연락처</b></td>
+                <td class="subject_">
+                    <input type="text" name="mobile" class="pinput" required value="${userdto.user_mobile}">
+                </td>
+            </tr>
+            <tr id="btntr">
+                <td colspan="2"><input type="button" value="정보수정 완료" onclick="pwCheck()" id="joinBtn"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
