@@ -18,8 +18,12 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
-    @Autowired
-    UserMapper userMapper;
+
+    private final UserMapper userMapper;
+
+    public UserController(UserMapper userMapper){
+        this.userMapper = userMapper;
+    }
 
     @RequestMapping("/login")
     public String  userLogin() {
@@ -80,7 +84,7 @@ public class UserController {
     }
 
 
-    
+
 
 
 

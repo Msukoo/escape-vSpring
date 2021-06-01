@@ -14,8 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/booking/*")
 public class BookingController {
 
-    @Autowired
-    BookingMapper bookingMapper;
+    private final BookingMapper bookingMapper;
+
+    public BookingController(BookingMapper bookingMapper){
+        this.bookingMapper = bookingMapper;
+    }
 
     @RequestMapping("/view")
     public String booking(ModelMap model, BookingVo bookingVo, HttpServletRequest request, HttpServletResponse response) {
