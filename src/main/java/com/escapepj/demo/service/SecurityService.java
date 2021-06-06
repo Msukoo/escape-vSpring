@@ -29,10 +29,12 @@ public class SecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserVo userVo = userMapper.readUser(username);
         if(userVo != null) {
+            System.out.println("9dd");
             userVo.setAuthorities(makeGrantedAuthority(userMapper.readAuthority(username)));
         }
         return new SecurityUser(userVo);
     }
+
 
     private static List<GrantedAuthority> makeGrantedAuthority(List<String> roles){
         List<GrantedAuthority> list = new ArrayList<>();
